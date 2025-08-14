@@ -166,18 +166,21 @@ export default function DateCalculator() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 p-8">
-        <div className="flex items-center gap-3 mb-8">
-          <Calendar className="w-8 h-8 text-blue-400" />
-          <h1 className="text-3xl font-bold text-white">Date Calculator</h1>
+    <div className="w-full max-w-4xl mx-auto p-3 sm:p-6">
+      <div className="bg-gray-800 rounded-xl sm:rounded-2xl shadow-2xl border border-gray-700 p-4 sm:p-6 lg:p-8">
+        {/* Header */}
+        <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+          <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 flex-shrink-0" />
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
+            Date Calculator
+          </h1>
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex mb-8 bg-gray-700 rounded-lg p-1">
+        <div className="flex mb-6 sm:mb-8 bg-gray-700 rounded-lg p-1">
           <button
             onClick={() => setMode("calculator")}
-            className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
+            className={`flex-1 py-2 px-3 sm:px-4 rounded-md font-medium transition-all text-sm sm:text-base ${
               mode === "calculator"
                 ? "bg-blue-600 text-white shadow-lg"
                 : "text-gray-300 hover:text-white hover:bg-gray-600"
@@ -187,7 +190,7 @@ export default function DateCalculator() {
           </button>
           <button
             onClick={() => setMode("difference")}
-            className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
+            className={`flex-1 py-2 px-3 sm:px-4 rounded-md font-medium transition-all text-sm sm:text-base ${
               mode === "difference"
                 ? "bg-blue-600 text-white shadow-lg"
                 : "text-gray-300 hover:text-white hover:bg-gray-600"
@@ -200,7 +203,7 @@ export default function DateCalculator() {
         {mode === "calculator" ? (
           <>
             {/* Date Calculator Mode */}
-            <div className="mb-8">
+            <div className="mb-6 sm:mb-8">
               <label className="block text-sm font-semibold text-gray-300 mb-2">
                 Starting Date
               </label>
@@ -208,26 +211,29 @@ export default function DateCalculator() {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full md:w-auto px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-lg"
               />
             </div>
 
             {/* Operations */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-white">Operations</h2>
-                <div className="flex gap-2">
+            <div className="mb-6 sm:mb-8">
+              <div className="flex items-start sm:items-center justify-between mb-4 gap-3">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">
+                  Operations
+                </h2>
+                <div className="flex flex-col sm:flex-row gap-2">
                   <button
                     onClick={addOperation}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
+                    className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base whitespace-nowrap"
                   >
                     <Plus className="w-4 h-4" />
-                    Add Operation
+                    <span className="hidden xs:inline">Add Operation</span>
+                    <span className="xs:hidden">Add</span>
                   </button>
                   {operations.length > 0 && (
                     <button
                       onClick={clearAll}
-                      className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors"
+                      className="px-3 sm:px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors text-sm sm:text-base"
                     >
                       Clear All
                     </button>
@@ -236,62 +242,63 @@ export default function DateCalculator() {
               </div>
 
               {operations.length === 0 ? (
-                <div className="text-center py-12 text-gray-400">
-                  <Calculator className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                  <p>
-                    No operations added yet. Click "Add Operation" to get
-                    started!
+                <div className="text-center py-8 sm:py-12 text-gray-400">
+                  <Calculator className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 opacity-50" />
+                  <p className="text-sm sm:text-base">
+                    No operations added yet. Click "Add" to get started!
                   </p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {operations.map((op, index) => (
                     <div
                       key={op.id}
-                      className="flex items-center gap-4 p-4 bg-gray-700 border border-gray-600 rounded-lg"
+                      className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 bg-gray-700 border border-gray-600 rounded-lg"
                     >
-                      <span className="text-sm font-medium text-gray-300 w-8">
+                      <span className="text-sm font-medium text-gray-300 w-6 sm:w-8 flex-shrink-0">
                         {index + 1}.
                       </span>
 
-                      <select
-                        value={op.operation}
-                        onChange={(e) =>
-                          updateOperation(op.id, "operation", e.target.value)
-                        }
-                        className="px-3 py-2 bg-gray-600 border border-gray-500 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="add">Add</option>
-                        <option value="subtract">Subtract</option>
-                      </select>
+                      <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 flex-1">
+                        <select
+                          value={op.operation}
+                          onChange={(e) =>
+                            updateOperation(op.id, "operation", e.target.value)
+                          }
+                          className="px-2 sm:px-3 py-2 bg-gray-600 border border-gray-500 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base min-w-0 flex-shrink-0"
+                        >
+                          <option value="add">Add</option>
+                          <option value="subtract">Subtract</option>
+                        </select>
 
-                      <input
-                        type="number"
-                        min="1"
-                        value={op.value}
-                        onChange={(e) =>
-                          updateOperation(op.id, "value", e.target.value)
-                        }
-                        className="w-20 px-3 py-2 bg-gray-600 border border-gray-500 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      />
+                        <input
+                          type="number"
+                          min="1"
+                          value={op.value}
+                          onChange={(e) =>
+                            updateOperation(op.id, "value", e.target.value)
+                          }
+                          className="w-16 sm:w-20 px-2 sm:px-3 py-2 bg-gray-600 border border-gray-500 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base flex-shrink-0"
+                        />
 
-                      <select
-                        value={op.unit}
-                        onChange={(e) =>
-                          updateOperation(op.id, "unit", e.target.value)
-                        }
-                        className="px-3 py-2 bg-gray-600 border border-gray-500 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        {unitOptions.map((unit) => (
-                          <option key={unit.value} value={unit.value}>
-                            {unit.label}
-                          </option>
-                        ))}
-                      </select>
+                        <select
+                          value={op.unit}
+                          onChange={(e) =>
+                            updateOperation(op.id, "unit", e.target.value)
+                          }
+                          className="px-2 sm:px-3 py-2 bg-gray-600 border border-gray-500 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base min-w-0 flex-1 sm:flex-initial"
+                        >
+                          {unitOptions.map((unit) => (
+                            <option key={unit.value} value={unit.value}>
+                              {unit.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
                       <button
                         onClick={() => removeOperation(op.id)}
-                        className="p-2 text-red-400 hover:bg-red-900 hover:bg-opacity-30 rounded-md transition-colors"
+                        className="p-2 text-red-400 hover:bg-red-900 hover:bg-opacity-30 rounded-md transition-colors flex-shrink-0"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -303,12 +310,12 @@ export default function DateCalculator() {
 
             {/* Calculate Button */}
             {operations.length > 0 && (
-              <div className="mb-8">
+              <div className="mb-6 sm:mb-8">
                 <button
                   onClick={calculateResult}
-                  className="w-full md:w-auto px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-semibold flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-base sm:text-lg font-semibold flex items-center justify-center gap-2 shadow-lg"
                 >
-                  <Calculator className="w-5 h-5" />
+                  <Calculator className="w-4 h-4 sm:w-5 sm:h-5" />
                   Calculate Result
                 </button>
               </div>
@@ -316,24 +323,24 @@ export default function DateCalculator() {
 
             {/* Result */}
             {resultDate && (
-              <div className="bg-gradient-to-r from-green-900 to-emerald-900 border border-green-700 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-green-200 mb-2">
+              <div className="bg-gradient-to-r from-green-900 to-emerald-900 border border-green-700 rounded-lg p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold text-green-200 mb-2">
                   Result
                 </h3>
                 <div className="space-y-2">
-                  <p className="text-2xl font-bold text-green-100">
+                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-green-100 leading-tight">
                     {formatDate(resultDate)}
                   </p>
-                  <p className="text-green-300">
+                  <p className="text-sm sm:text-base text-green-300">
                     {resultDate.toISOString().split("T")[0]}
                   </p>
 
                   {/* Show calculation summary */}
-                  <div className="mt-4 pt-4 border-t border-green-700">
-                    <p className="text-sm text-green-200 font-medium mb-2">
+                  <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-green-700">
+                    <p className="text-sm font-medium text-green-200 mb-2">
                       Calculation Summary:
                     </p>
-                    <div className="text-sm text-green-300">
+                    <div className="text-sm text-green-300 space-y-1">
                       <p>
                         Starting:{" "}
                         {formatDate(
@@ -359,8 +366,8 @@ export default function DateCalculator() {
         ) : (
           <>
             {/* Date Difference Mode */}
-            <div className="space-y-6 mb-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-300 mb-2">
                     From Date
@@ -369,7 +376,7 @@ export default function DateCalculator() {
                     type="date"
                     value={fromDate}
                     onChange={(e) => setFromDate(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base sm:text-lg"
                   />
                 </div>
                 <div>
@@ -380,23 +387,23 @@ export default function DateCalculator() {
                     type="date"
                     value={toDate}
                     onChange={(e) => setToDate(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-lg"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base sm:text-lg"
                   />
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   onClick={calculateDateDifference}
-                  className="px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-lg font-semibold flex items-center gap-2 shadow-lg"
+                  className="flex-1 sm:flex-initial px-6 sm:px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-base sm:text-lg font-semibold flex items-center justify-center gap-2 shadow-lg"
                 >
-                  <Calculator className="w-5 h-5" />
+                  <Calculator className="w-4 h-4 sm:w-5 sm:h-5" />
                   Calculate Difference
                 </button>
                 {dateDifference && (
                   <button
                     onClick={clearAll}
-                    className="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors"
+                    className="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors text-sm sm:text-base"
                   >
                     Clear
                   </button>
@@ -406,17 +413,17 @@ export default function DateCalculator() {
 
             {/* Date Difference Result */}
             {dateDifference && (
-              <div className="bg-gradient-to-r from-purple-900 to-indigo-900 border border-purple-700 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-purple-200 mb-4">
+              <div className="bg-gradient-to-r from-purple-900 to-indigo-900 border border-purple-700 rounded-lg p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold text-purple-200 mb-3 sm:mb-4">
                   Time Difference
                 </h3>
 
                 {/* Precise breakdown */}
-                <div className="mb-6">
-                  <h4 className="text-md font-medium text-purple-300 mb-2">
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="text-sm sm:text-base font-medium text-purple-300 mb-2">
                     Precise Difference:
                   </h4>
-                  <p className="text-2xl font-bold text-purple-100">
+                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-100 leading-tight">
                     {dateDifference.precise.years !== 0 &&
                       `${Math.abs(dateDifference.precise.years)} year${
                         Math.abs(dateDifference.precise.years) !== 1 ? "s" : ""
@@ -441,40 +448,48 @@ export default function DateCalculator() {
 
                 {/* Alternative representations */}
                 {dateDifference.totalDays !== 0 && (
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-purple-700">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-purple-700">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-purple-100">
+                      <p className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-100">
                         {Math.abs(dateDifference.totalDays).toLocaleString()}
                       </p>
-                      <p className="text-sm text-purple-300">Total Days</p>
+                      <p className="text-xs sm:text-sm text-purple-300">
+                        Total Days
+                      </p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-purple-100">
+                      <p className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-100">
                         {Math.abs(dateDifference.totalWeeks).toLocaleString()}
                       </p>
-                      <p className="text-sm text-purple-300">Total Weeks</p>
+                      <p className="text-xs sm:text-sm text-purple-300">
+                        Total Weeks
+                      </p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-purple-100">
+                      <p className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-100">
                         {Math.abs(dateDifference.totalMonths).toLocaleString()}
                       </p>
-                      <p className="text-sm text-purple-300">Total Months</p>
+                      <p className="text-xs sm:text-sm text-purple-300">
+                        Total Months
+                      </p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-purple-100">
+                      <p className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-100">
                         {Math.abs(dateDifference.totalYears).toLocaleString()}
                       </p>
-                      <p className="text-sm text-purple-300">Total Years</p>
+                      <p className="text-xs sm:text-sm text-purple-300">
+                        Total Years
+                      </p>
                     </div>
                   </div>
                 )}
 
                 {/* Date range summary */}
-                <div className="mt-4 pt-4 border-t border-purple-700">
-                  <p className="text-sm text-purple-200 font-medium mb-2">
+                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-purple-700">
+                  <p className="text-sm font-medium text-purple-200 mb-2">
                     Date Range:
                   </p>
-                  <div className="text-sm text-purple-300">
+                  <div className="text-sm text-purple-300 space-y-1">
                     <p>
                       From:{" "}
                       {formatDate(
@@ -504,4 +519,4 @@ export default function DateCalculator() {
       </div>
     </div>
   );
-}
+};
