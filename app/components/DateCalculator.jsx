@@ -166,7 +166,7 @@ export default function DateCalculator() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 min-h-screen">
+    <div className="max-w-4xl mx-auto p-6">
       <div className="bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 p-8">
         <div className="flex items-center gap-3 mb-8">
           <Calendar className="w-8 h-8 text-blue-400" />
